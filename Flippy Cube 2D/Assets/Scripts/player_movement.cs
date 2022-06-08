@@ -16,6 +16,7 @@ public class player_movement : MonoBehaviour
     public Vector2 topCoords = new Vector2(0, 0);
     public Vector2 startingPos = new Vector2(0, 0);
 
+
     //standing lying sideways
     public string state = "standing";
     void Awake(){
