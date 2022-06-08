@@ -12,12 +12,17 @@ public class player_movement : MonoBehaviour
 
     public float height = 2.7F;
 
+    public Vector2 bottomCoords = new Vector2(0, 0);
+    public Vector2 topCoords = new Vector2(0, 0);
+    public Vector2 startingPos = new Vector2(0, 0);
+
     //standing lying sideways
     public string state = "standing";
     void Awake(){
         Bottom = this.gameObject.transform.GetChild(0).gameObject;
         Top = this.gameObject.transform.GetChild(1).gameObject;
-
+        topCoords = startingPos;
+        bottomCoords = startingPos;
     }
 
     void Update()
@@ -47,6 +52,8 @@ public class player_movement : MonoBehaviour
             Top.transform.position = Bottom.transform.position;
             Top.transform.position += new Vector3(vertical_x,-vertical_y,0);
             state = "lying";
+            bottomCoords += new Vector2(1,0);
+            topCoords += new Vector2(2, 0);
         }
 
         else if(state=="lying"){
@@ -54,12 +61,16 @@ public class player_movement : MonoBehaviour
             Top.transform.position = Bottom.transform.position;
             Top.transform.position += new Vector3(0,height,0);
             state = "standing";
+            topCoords += new Vector2(1, 0);
+            bottomCoords = topCoords;
         }
         else if (state == "sideways")
         {
             Bottom.transform.position -= new Vector3(-vertical_x, vertical_y, 0);
             Top.transform.position -= new Vector3(-vertical_x, vertical_y, 0);
             state = "sideways";
+            bottomCoords += new Vector2(1, 0);
+            topCoords += new Vector2(1, 0);
         }
 
 
@@ -72,6 +83,8 @@ public class player_movement : MonoBehaviour
             
             Bottom.transform.position -= new Vector3(vertical_x*2,-vertical_y*2,0);
             state = "lying";
+            topCoords -= new Vector2(1, 0);
+            bottomCoords -= new Vector2(2, 0);
         }
 
         else if(state=="lying"){
@@ -79,12 +92,16 @@ public class player_movement : MonoBehaviour
             Top.transform.position = Bottom.transform.position;
             Top.transform.position += new Vector3(0,height,0);
             state = "standing";
+            bottomCoords -= new Vector2(1, 0);
+            topCoords = bottomCoords;
         }
         else if (state == "sideways")
         {
             Bottom.transform.position += new Vector3(-vertical_x, vertical_y, 0);
             Top.transform.position += new Vector3(-vertical_x, vertical_y, 0);
             state = "sideways";
+            bottomCoords -= new Vector2(1, 0);
+            topCoords -= new Vector2(1, 0);
         }
 
     }
@@ -97,12 +114,16 @@ public class player_movement : MonoBehaviour
             Top.transform.position = Bottom.transform.position;
             Bottom.transform.position += new Vector3(vertical_x, vertical_y, 0);
             state = "sideways";
+            topCoords -= new Vector2(0, 1);
+            bottomCoords -= new Vector2(0, 2);
         }
         else if (state == "lying")
         {
             Bottom.transform.position += new Vector3(vertical_x, vertical_y, 0);
             Top.transform.position += new Vector3(vertical_x, vertical_y, 0);
             state = "lying";
+            topCoords -= new Vector2(0, 1);
+            bottomCoords -= new Vector2(0, 1);
         }
         else if (state == "sideways")
         {
@@ -110,6 +131,8 @@ public class player_movement : MonoBehaviour
             Top.transform.position = Bottom.transform.position;
             Top.transform.position += new Vector3(0, height, 0);
             state = "standing";
+            bottomCoords -= new Vector2(0, 1);
+            topCoords = bottomCoords;
         }
     }
 
@@ -121,12 +144,16 @@ public class player_movement : MonoBehaviour
             Top.transform.position = Bottom.transform.position;
             Top.transform.position -= new Vector3(vertical_x, vertical_y, 0);
             state = "sideways";
+            bottomCoords += new Vector2(0, 1);
+            topCoords += new Vector2(0, 2);
         }
         else if (state == "lying")
         {
             Bottom.transform.position -= new Vector3(vertical_x, vertical_y, 0);
             Top.transform.position -= new Vector3(vertical_x, vertical_y, 0);
             state = "lying";
+            bottomCoords += new Vector2(0, 1);
+            topCoords += new Vector2(0, 1);
         }
         else if (state == "sideways")
         {
@@ -134,6 +161,8 @@ public class player_movement : MonoBehaviour
             Bottom.transform.position = Top.transform.position;
             Top.transform.position += new Vector3(0, height, 0);
             state = "standing";
+            topCoords += new Vector2(0, 1);
+            bottomCoords = topCoords;
         }
 
     }
