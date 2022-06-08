@@ -31,6 +31,14 @@ public class player_movement : MonoBehaviour
         {
             Down();
         }
+        if (Input.GetKeyDown("right"))
+        {
+            Right();
+        }
+        if (Input.GetKeyDown("left"))
+        {
+            Left();
+        }
     }
 
     void Down(){
@@ -47,7 +55,14 @@ public class player_movement : MonoBehaviour
             Top.transform.position += new Vector3(0,height,0);
             state = "standing";
         }
-        
+        else if (state == "sideways")
+        {
+            Bottom.transform.position -= new Vector3(-vertical_x, vertical_y, 0);
+            Top.transform.position -= new Vector3(-vertical_x, vertical_y, 0);
+            state = "sideways";
+        }
+
+
     }
 
     void Up(){
@@ -65,6 +80,61 @@ public class player_movement : MonoBehaviour
             Top.transform.position += new Vector3(0,height,0);
             state = "standing";
         }
-        
+        else if (state == "sideways")
+        {
+            Bottom.transform.position += new Vector3(-vertical_x, vertical_y, 0);
+            Top.transform.position += new Vector3(-vertical_x, vertical_y, 0);
+            state = "sideways";
+        }
+
+    }
+
+    void Right()
+    {
+        if (state == "standing"){
+
+            Bottom.transform.position += new Vector3(vertical_x, vertical_y, 0);
+            Top.transform.position = Bottom.transform.position;
+            Bottom.transform.position += new Vector3(vertical_x, vertical_y, 0);
+            state = "sideways";
+        }
+        else if (state == "lying")
+        {
+            Bottom.transform.position += new Vector3(vertical_x, vertical_y, 0);
+            Top.transform.position += new Vector3(vertical_x, vertical_y, 0);
+            state = "lying";
+        }
+        else if (state == "sideways")
+        {
+            Bottom.transform.position += new Vector3(vertical_x, vertical_y, 0);
+            Top.transform.position = Bottom.transform.position;
+            Top.transform.position += new Vector3(0, height, 0);
+            state = "standing";
+        }
+    }
+
+    void Left()
+    {
+        if (state == "standing")
+        {
+            Bottom.transform.position -= new Vector3(vertical_x, vertical_y, 0);
+            Top.transform.position = Bottom.transform.position;
+            Top.transform.position -= new Vector3(vertical_x, vertical_y, 0);
+            state = "sideways";
+        }
+        else if (state == "lying")
+        {
+            Bottom.transform.position -= new Vector3(vertical_x, vertical_y, 0);
+            Top.transform.position -= new Vector3(vertical_x, vertical_y, 0);
+            state = "lying";
+        }
+        else if (state == "sideways")
+        {
+            Top.transform.position -= new Vector3(vertical_x, vertical_y, 0);
+            Bottom.transform.position = Top.transform.position;
+            Top.transform.position += new Vector3(0, height, 0);
+            state = "standing";
+        }
+
     }
 }
