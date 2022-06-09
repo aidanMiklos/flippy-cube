@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class player_movement : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class player_movement : MonoBehaviour
     public Vector2 topCoords = new Vector2(0, 0);
     public Vector2 startingPos = new Vector2(0, 0);
 
+    GameObject Ground;
+    List<Vector2> coordList = new List<Vector2>();
+    List<string> blockList = new List<string>();
+    public string bottomBlock;
+    public string topBlock;
 
     //standing lying sideways
     public string state = "standing";
@@ -24,6 +30,10 @@ public class player_movement : MonoBehaviour
         Top = this.gameObject.transform.GetChild(1).gameObject;
         topCoords = startingPos;
         bottomCoords = startingPos;
+        Ground = GameObject.Find("Ground");
+        coordList = Ground.gameObject.GetComponent<grid_setup>().coordList;
+        blockList = Ground.gameObject.GetComponent<grid_setup>().blockList;
+        FindBlocksOn(bottomCoords, topCoords);
     }
 
     void Update()
@@ -74,6 +84,7 @@ public class player_movement : MonoBehaviour
             topCoords += new Vector2(1, 0);
         }
 
+        FindBlocksOn(bottomCoords, topCoords);
 
     }
 
@@ -104,7 +115,7 @@ public class player_movement : MonoBehaviour
             bottomCoords -= new Vector2(1, 0);
             topCoords -= new Vector2(1, 0);
         }
-
+        FindBlocksOn(bottomCoords, topCoords);
     }
 
     void Right()
@@ -135,6 +146,7 @@ public class player_movement : MonoBehaviour
             bottomCoords -= new Vector2(0, 1);
             topCoords = bottomCoords;
         }
+        FindBlocksOn(bottomCoords, topCoords);
     }
 
     void Left()
@@ -165,6 +177,26 @@ public class player_movement : MonoBehaviour
             topCoords += new Vector2(0, 1);
             bottomCoords = topCoords;
         }
+        FindBlocksOn(bottomCoords, topCoords);
+    }
 
+    void FindBlocksOn(Vector2 b_coords, Vector2 t_coords){
+        int bottomIndex = coordList.IndexOf(b_coords);
+        int topIndex = coordList.IndexOf(t_coords);
+        try
+        {
+            bottomBlock = blockList[bottomIndex];
+        }
+        catch(ArgumentOutOfRangeException e){
+            bottomBlock = "AIR";
+        }
+
+        try{
+            topBlock = blockList[topIndex];
+        }
+        catch(ArgumentOutOfRangeException e){
+            topBlock = "AIR";
+        }
+        
     }
 }
