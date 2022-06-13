@@ -23,6 +23,8 @@ public class player_movement : MonoBehaviour
     public string bottomBlock;
     public string topBlock;
 
+    AudioSource moveAudio;
+
     //standing lying sideways
     public string state = "standing";
     void Awake(){
@@ -34,6 +36,7 @@ public class player_movement : MonoBehaviour
         coordList = Ground.gameObject.GetComponent<grid_setup>().coordList;
         blockList = Ground.gameObject.GetComponent<grid_setup>().blockList;
         FindBlocksOn(bottomCoords, topCoords);
+        moveAudio = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -85,6 +88,7 @@ public class player_movement : MonoBehaviour
         }
 
         FindBlocksOn(bottomCoords, topCoords);
+        moveAudio.PlayOneShot(moveAudio.clip, 1f);
 
     }
 
@@ -116,6 +120,7 @@ public class player_movement : MonoBehaviour
             topCoords -= new Vector2(1, 0);
         }
         FindBlocksOn(bottomCoords, topCoords);
+        moveAudio.PlayOneShot(moveAudio.clip, 1f);
     }
 
     void Right()
@@ -147,6 +152,7 @@ public class player_movement : MonoBehaviour
             topCoords = bottomCoords;
         }
         FindBlocksOn(bottomCoords, topCoords);
+        moveAudio.PlayOneShot(moveAudio.clip, 1f);
     }
 
     void Left()
@@ -178,6 +184,7 @@ public class player_movement : MonoBehaviour
             bottomCoords = topCoords;
         }
         FindBlocksOn(bottomCoords, topCoords);
+        moveAudio.PlayOneShot(moveAudio.clip, 1f);
     }
 
     void FindBlocksOn(Vector2 b_coords, Vector2 t_coords){

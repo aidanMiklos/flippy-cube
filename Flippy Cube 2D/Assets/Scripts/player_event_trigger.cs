@@ -24,5 +24,7 @@ public class player_event_trigger : MonoBehaviour
     }
     public void Win(){
         Debug.Log("WIN");
+        GameObject levelSwitcher = GameObject.Find("Level Switcher");
+        levelSwitcher.GetComponent<level_switcher>().SwitchLevel();
     }
 }
