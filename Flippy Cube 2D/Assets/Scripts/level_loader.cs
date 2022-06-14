@@ -17,17 +17,17 @@ public class level_loader : MonoBehaviour
         levelSwitcher.GetComponent<level_switcher>().LoadLevel(PlayerPrefs.GetString("Level"));
         }
         if(!GameObject.Find("Music(Clone)")){ 
-            Instantiate(music, new Vector3(0,0,0), Quaternion.identity);
+            GameObject musicClone = Instantiate(music, new Vector3(0,0,0), Quaternion.identity);
             string state = PlayerPrefs.GetString("ToggleState");
             
             if(state=="All"){
-                gameObject.GetComponent<AudioSource>().volume = 0.8f;
+                musicClone.GetComponent<AudioSource>().volume = 0.8f;
             }
             else if(state=="Half"){
-                gameObject.GetComponent<AudioSource>().volume = 0.3f;
+                musicClone.GetComponent<AudioSource>().volume = 0.3f;
             }
             else{
-                gameObject.GetComponent<AudioSource>().volume = 0f;
+                musicClone.GetComponent<AudioSource>().volume = 0f;
             }
         }
 
