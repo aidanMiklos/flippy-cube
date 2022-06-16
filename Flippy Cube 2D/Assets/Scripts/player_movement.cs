@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class player_movement : MonoBehaviour
@@ -28,6 +29,16 @@ public class player_movement : MonoBehaviour
     //standing lying sideways
     public string state = "standing";
     void Awake(){
+
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            startingPos = new Vector2(0, 1);
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            startingPos = new Vector2(1, 6);
+        }
+
         Bottom = this.gameObject.transform.GetChild(0).gameObject;
         Top = this.gameObject.transform.GetChild(1).gameObject;
         topCoords = startingPos;
@@ -37,6 +48,7 @@ public class player_movement : MonoBehaviour
         blockList = Ground.gameObject.GetComponent<grid_setup>().blockList;
         FindBlocksOn(bottomCoords, topCoords);
         moveAudio = gameObject.GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -189,19 +201,20 @@ public class player_movement : MonoBehaviour
 
     void FindBlocksOn(Vector2 b_coords, Vector2 t_coords){
         int bottomIndex = coordList.IndexOf(b_coords);
+        Debug.Log(bottomIndex);
         int topIndex = coordList.IndexOf(t_coords);
         try
         {
             bottomBlock = blockList[bottomIndex];
         }
-        catch(ArgumentOutOfRangeException e){
+        catch(ArgumentOutOfRangeException){
             bottomBlock = "AIR";
         }
 
         try{
             topBlock = blockList[topIndex];
         }
-        catch(ArgumentOutOfRangeException e){
+        catch(ArgumentOutOfRangeException){
             topBlock = "AIR";
         }
         

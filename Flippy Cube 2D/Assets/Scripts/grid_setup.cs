@@ -23,7 +23,7 @@ public class grid_setup : MonoBehaviour
                     blockList.Add("WIN");
                 }
 
-                else if(baby.name == "AIR")
+                else if(baby.name.Contains("AIR"))
                 {
                     blockList.Add("AIR");
                 }

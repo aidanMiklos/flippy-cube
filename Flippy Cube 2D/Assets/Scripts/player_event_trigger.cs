@@ -20,7 +20,8 @@ public class player_event_trigger : MonoBehaviour
     }
 
     public void Die(){
-        Debug.Log("DIE");
+        GameObject levelSwitcher = GameObject.Find("Level Switcher");
+        levelSwitcher.GetComponent<level_switcher>().Die();
     }
     public void Win(){
         GameObject levelSwitcher = GameObject.Find("Level Switcher");

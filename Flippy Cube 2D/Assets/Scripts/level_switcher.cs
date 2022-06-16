@@ -2,30 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  using UnityEngine.SceneManagement;
+using System;
 public class level_switcher : MonoBehaviour
 {
     public string nextScene;
     public Animator animator;
     public Animator playerAnimator;
     public GameObject player;
-
+    public bool wonSound = false;
 
     public void SwitchLevel(){
         if(nextScene != ""){
             PlayerPrefs.SetString("Level", nextScene);
-            StartCoroutine(LoadNextScene(nextScene));
+            StartCoroutine(LoadNextScene(nextScene, true));
         }
          
     }
 
     public void LoadLevel(string level){
-        StartCoroutine(LoadNextScene(level));
+        StartCoroutine(LoadNextScene(level, false));
     }
 
-    IEnumerator LoadNextScene(string name)
+    IEnumerator LoadNextScene(string name, bool isWin)
     {
-        player = GameObject.Find("Player(Clone)");
-        player.GetComponent<player_movement>().enabled = false;
+        if (isWin && !wonSound)
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+            wonSound = true;
+        }
+        try
+        {
+            player = GameObject.Find("Player(Clone)");
+            player.GetComponent<player_movement>().enabled = false;
+        }
+        catch(NullReferenceException)
+        {
+            Debug.Log("no player in scen");
+        }
+
         bool wait = true;
         Debug.Log("SWITCH");
         try
@@ -46,12 +60,19 @@ public class level_switcher : MonoBehaviour
 
 
         SceneManager.LoadScene(sceneName: name);
+        Destroy(gameObject);
+    }
+
+    public void Die()
+    {
+        StartCoroutine(LoadThisScene());
     }
 
     IEnumerator LoadThisScene()
     {
         player = GameObject.Find("Player(Clone)");
         player.GetComponent<player_movement>().enabled = false;
+        playerAnimator = player.GetComponent<Animator>();
         bool wait = true;
         Debug.Log("SWITCH");
         try
@@ -69,9 +90,25 @@ public class level_switcher : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
+        wait = true;
+
+        try
+        {
+            animator.SetTrigger("End");
+
+        }
+        catch (UnassignedReferenceException)
+        {
+            wait = false;
+        }
+
+        if (wait)
+        {
+            yield return new WaitForSeconds(1f);
+        }
 
 
-        SceneManager.LoadScene(sceneName: name);
+        SceneManager.LoadScene(sceneName: SceneManager.GetActiveScene().name);
     }
 
 
