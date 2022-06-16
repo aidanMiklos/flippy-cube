@@ -41,7 +41,6 @@ public class level_switcher : MonoBehaviour
         }
 
         bool wait = true;
-        Debug.Log("SWITCH");
         try
         {
             animator.SetTrigger("End");
@@ -74,7 +73,6 @@ public class level_switcher : MonoBehaviour
         player.GetComponent<player_movement>().enabled = false;
         playerAnimator = player.GetComponent<Animator>();
         bool wait = true;
-        Debug.Log("SWITCH");
         try
         {
             playerAnimator.SetTrigger("DIE");
@@ -87,7 +85,7 @@ public class level_switcher : MonoBehaviour
 
         if (wait)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.3f);
         }
 
         wait = true;

@@ -38,7 +38,10 @@ public class player_movement : MonoBehaviour
         {
             startingPos = new Vector2(1, 6);
         }
-
+        else if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            startingPos = new Vector2(0, 7);
+        }
         Bottom = this.gameObject.transform.GetChild(0).gameObject;
         Top = this.gameObject.transform.GetChild(1).gameObject;
         topCoords = startingPos;
@@ -201,7 +204,6 @@ public class player_movement : MonoBehaviour
 
     void FindBlocksOn(Vector2 b_coords, Vector2 t_coords){
         int bottomIndex = coordList.IndexOf(b_coords);
-        Debug.Log(bottomIndex);
         int topIndex = coordList.IndexOf(t_coords);
         try
         {
