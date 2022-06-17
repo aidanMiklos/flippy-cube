@@ -42,6 +42,10 @@ public class player_movement : MonoBehaviour
         {
             startingPos = new Vector2(0, 7);
         }
+        else if (SceneManager.GetActiveScene().name == "Level 4")
+        {
+            startingPos = new Vector2(4, 7);
+        }
         Bottom = this.gameObject.transform.GetChild(0).gameObject;
         Top = this.gameObject.transform.GetChild(1).gameObject;
         topCoords = startingPos;
