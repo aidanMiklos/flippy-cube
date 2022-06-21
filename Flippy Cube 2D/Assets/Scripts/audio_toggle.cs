@@ -14,10 +14,11 @@ public class audio_toggle : MonoBehaviour
     
     string[] states = new string[]{"All", "Half", "None"};
     void Awake(){
-        if(PlayerPrefs.GetString("ToggleState") == null){
+        if(PlayerPrefs.GetString("ToggleState") == ""){
             PlayerPrefs.SetString("ToggleState", "All");
         }
         toggleState = PlayerPrefs.GetString("ToggleState");
+        
         if(toggleState=="All"){
             gameObject.GetComponent<Image>().sprite = all;
             PlayerPrefs.SetString("ToggleState", "All");

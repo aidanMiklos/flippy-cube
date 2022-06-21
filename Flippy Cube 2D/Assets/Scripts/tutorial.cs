@@ -5,21 +5,40 @@ using TMPro;
 
 public class tutorial : MonoBehaviour
 {
-    GameObject player;
-    TextMeshPro text;
+    public GameObject player;
+    public TextMeshProUGUI text;
+    public string tutorialStart = "false";
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
-        player = GameObject.Find("Player(Clone)");
-        player.GetComponent<player_movement>().enabled = false;
-        text = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>();
-        StartCoroutine(Tutorial());
+        if(PlayerPrefs.GetString("tutorial")==""){
+            PlayerPrefs.SetString("tutorial", "false");
+        }
+        tutorialStart = PlayerPrefs.GetString("tutorial");
+        if(tutorialStart == "false"){
+            player = GameObject.Find("Player(Clone)");
+            player.GetComponent<player_movement>().enabled = false;
+            text = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            StartCoroutine(Tutorial());
+        }
+
     }
 
     IEnumerator Tutorial()
     {
+        PlayerPrefs.SetString("tutorial", "true");
+        text.fontSize = 75;
+        text.gameObject.transform.position = text.gameObject.transform.position - new Vector3(0,40,0);
         text.SetText("Swipe to control your cube");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(4f);
+        text.SetText("Get your cube in the hole");
+        yield return new WaitForSeconds(4f);
+        text.SetText("But don't fall off");
+        yield return new WaitForSeconds(4f);
+        text.fontSize = 200;
+        text.gameObject.transform.position = text.gameObject.transform.position + new Vector3(0,40,0);
+        text.SetText("01");
+        player.GetComponent<player_movement>().enabled = true;
     }
 
 }

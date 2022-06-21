@@ -46,7 +46,7 @@ public class level_switcher : MonoBehaviour
             animator.SetTrigger("End");
             
         }
-        catch (UnassignedReferenceException)
+        catch 
         {
             wait = false;
         }

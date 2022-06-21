@@ -5206,7 +5206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6e60caa57ad34489871fc2f810ab40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPos: {x: -6.55, y: -9.3, z: 12}
+  spawnPos: {x: -6.6, y: -9.3, z: 12}
   player: {fileID: 2681423901254239209, guid: a0d04556772016845aecab8e9410ac6b, type: 3}
   height: 2.7
 --- !u!4 &1651887837
