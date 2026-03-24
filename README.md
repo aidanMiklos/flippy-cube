@@ -1,1 +1,1 @@
-Hosted at https://aidanmiklos.ca/games/Stack.
+Hosted at https://aidanmiklos.ca/games/Flip.
